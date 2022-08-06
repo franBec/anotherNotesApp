@@ -13,19 +13,21 @@ const loginController = async (mail, password) => {
 
     //if not user
     if (!user) {
-      return 401;
+      return { data: null, status: 401 };
     }
 
     //if not valid password
     if (user.password !== password) {
-      return 401;
+      return { data: null, status: 401 };
     }
 
     //all ok!
-    return 200;
+    return { data: { id: user.id, name: user.firstName }, status: 200 };
   } catch (error) {
-    console.error(error.message);
-    return 500;
+    logger.error(error.message);
+    return { data: null, status: 500 };
+  } finally {
+    await prisma.$disconnect();
   }
 };
 

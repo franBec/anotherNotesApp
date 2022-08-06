@@ -1,13 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import yn from "yn";
+import logger from "../services/logger";
 
 const prisma = new PrismaClient();
 
 const noteController = async (params) => {
-  console.log(
-    new Date().toUTCString() +
-      " controllers/noteController.js -> params = " +
-      JSON.stringify(params)
+  logger.info(
+    "controllers/noteController.js -> params = " + JSON.stringify(params)
   );
 
   switch (params.action) {
@@ -28,12 +27,11 @@ const noteController = async (params) => {
 
 const handleException = (method, message) => {
   const errorMessage =
-    new Date().toUTCString() +
-    " controllers/noteController.js -> Exception in method " +
+    "controllers/noteController.js -> Exception in method " +
     method +
     ": " +
     message;
-  console.log(errorMessage);
+  logger.error(errorMessage);
 
   return {
     status: 500,
@@ -45,9 +43,8 @@ const handleException = (method, message) => {
 
 const methodDoesNotExist = () => {
   const errorMessage =
-    new Date().toUTCString() +
-    " controllers/noteController.js -> the action requested does not exist";
-  console.log(errorMessage);
+    "controllers/noteController.js -> the action requested does not exist";
+  logger.info(errorMessage);
 
   return {
     status: 400,

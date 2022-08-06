@@ -23,6 +23,8 @@
     "react-icons": "^4.4.0",
     "sweetalert2": "^11.4.24",
     "swr": "^1.3.0",
+    "winston": "^3.8.1",
+    "winston-daily-rotate-file": "^4.7.1",
     "yn": "^5.0.0",
     "zustand": "^4.0.0"
   },

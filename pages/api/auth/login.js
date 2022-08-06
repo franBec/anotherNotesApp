@@ -3,27 +3,29 @@
 import { sign } from "../../../services/auth/signAndVerify";
 import { serialize } from "cookie";
 import loginController from "../../../controllers/loginController";
+import logger from "../../../services/logger";
+import { data } from "autoprefixer";
 
 const cookiename = process.env.COOKIENAME;
 const cookieSecret = process.env.COOKIESECRET;
 
 export default async function (req, res) {
+  if (req.method !== "POST") {
+    return res
+      .status(405)
+      .json({ success: false, message: "Expected POST method" });
+  }
+
   const { mail, password } = req.body;
-  console.log(
-    new Date().toUTCString() +
-      " api/auth/login.js -> MAIL: " +
-      mail +
-      " PASSWORD: " +
-      password
-  );
+  logger.info("api/auth/login.js -> MAIL: " + mail + " PASSWORD: " + password);
 
   //check with the database
-  const loginStatus = await loginController(mail, password);
+  const login = await loginController(mail, password);
 
   //credentials ok
-  if (loginStatus === 200) {
+  if (login.status === 200) {
     //TODO: create a session and store it in a session table
-    const token = await sign("session_uuid_here", cookieSecret);
+    const token = await sign(login.data.id, cookieSecret);
 
     res.setHeader(
       "Set-Cookie",
@@ -35,11 +37,15 @@ export default async function (req, res) {
       })
     );
 
-    return res.status(200).json({ success: true, message: "Login success!" });
+    return res.status(200).json({
+      success: true,
+      message: "Login success!",
+      username: login.data.name,
+    });
   }
 
   //credentials invalid
-  if (loginStatus === 401) {
+  if (login.status === 401) {
     return res
       .status(401)
       .json({ success: false, message: "Invalid credentials" });

@@ -1,4 +1,5 @@
 import noteController from "../../../controllers/noteController";
+import logger from "../../../services/logger";
 
 //prettier-ignore
 export default async function handler(req,res){
@@ -8,10 +9,10 @@ export default async function handler(req,res){
     switch(method){
         case 'GET':
             try{
-                console.log(new Date().toUTCString()+' api/notes/index.js -> GET requested! query = '+JSON.stringify(query))                
+                logger.info('api/notes/index.js -> GET requested! query = '+JSON.stringify(query))                
                 if(!query?.action){
-                    errorMessage = new Date().toUTCString() + ' api/notes/index.js -> action required'
-                    console.log(errorMessage)
+                    errorMessage = 'api/notes/index.js -> action required'
+                    logger.info(errorMessage)
                     
                     return res.status(400).json({
                       status: 400,
@@ -33,8 +34,8 @@ export default async function handler(req,res){
                 }
 
             }catch(error){
-                errorMessage = new Date().toUTCString()+' api/notes/index.js -> GET error 500: exception = '+error.message
-                console.log(errorMessage)
+                errorMessage = 'api/notes/index.js -> GET error 500: exception = '+error.message
+                logger.error(errorMessage)
 
                 return res.status(500).json({
                     status: 500,
@@ -46,10 +47,10 @@ export default async function handler(req,res){
          
         case 'POST':
             try {
-                console.log(new Date().toUTCString() + ' api/notes/index.js -> POST requested! body = '+JSON.stringify(body))
+                logger.info('api/notes/index.js -> POST requested! body = '+JSON.stringify(body))
                 if(!body?.action){
-                    errorMessage = new Date().toUTCString() + ' api/notes/index.js -> action required'
-                    console.log(errorMessage)
+                    errorMessage = + 'api/notes/index.js -> action required'
+                    logger.info(errorMessage)
                     
                     return res.status(400).json({
                         status: 400,
@@ -70,8 +71,8 @@ export default async function handler(req,res){
                 }
 
             } catch (error) {
-                errorMessage = new Date().toUTCString()+' api/notes/index.js -> POST error 500: exception = '+error.message
-                console.log(errorMessage)
+                errorMessage = 'api/notes/index.js -> POST error 500: exception = '+error.message
+                logger.error(errorMessage)
                 return res.status(500).json({
                     status: 500,
                     success: false,
@@ -82,10 +83,10 @@ export default async function handler(req,res){
 
         case 'PUT':
             try {
-                console.log(new Date().toUTCString() + ' api/notes/index.js -> PUT requested! body = '+JSON.stringify(body))
+                logger.info('api/notes/index.js -> PUT requested! body = '+JSON.stringify(body))
                 if(!body?.action){
-                    errorMessage = new Date().toUTCString() + ' api/notes/index.js -> action required'
-                    console.log(errorMessage)
+                    errorMessage = 'api/notes/index.js -> action required'
+                    logger.info(errorMessage)
                     errors.push(errorMessage)
                     
                     return res.status(400).json({
@@ -106,8 +107,8 @@ export default async function handler(req,res){
                         return res.status(500).json(results)
                 }
             } catch (error) {
-                errorMessage = new Date().toUTCString()+' api/notes/index.js -> PUT error 500: exception = '+error.message
-                console.log(errorMessage)
+                errorMessage = 'api/notes/index.js -> PUT error 500: exception = '+error.message
+                logger.error(errorMessage)
                 return res.status(500).json({
                     status: 500,
                     success: false,
@@ -118,10 +119,10 @@ export default async function handler(req,res){
 
         case 'DELETE':
             try {
-                console.log(new Date().toUTCString() + ' api/notes/index.js -> DELETE requested! body = '+JSON.stringify(body))
+                logger.info('api/notes/index.js -> DELETE requested! body = '+JSON.stringify(body))
                 if(!body?.action){
-                    errorMessage = new Date().toUTCString() + ' api/notes/index.js -> action required'
-                    console.log(errorMessage)
+                    errorMessage = 'api/notes/index.js -> action required'
+                    logger.info(errorMessage)
                     
                     return res.status(400).json({
                     status: 400,
@@ -141,8 +142,8 @@ export default async function handler(req,res){
                         return res.status(500).json(results)
                 }
             } catch (error) {
-                errorMessage = new Date().toUTCString()+' api/notes/index.js -> DELETE error 500: exception = '+error.message
-                console.log(errorMessage)
+                errorMessage = 'api/notes/index.js -> DELETE error 500: exception = '+error.message
+                logger.error(errorMessage)
                 return res.status(500).json({
                     status: 500,
                     success: false,
@@ -152,8 +153,8 @@ export default async function handler(req,res){
             }
 
         default:
-            errorMessage = new Date().toUTCString()+' api/notes/index.js -> DEFAULT error 405: method not allowed'
-            console.log(errorMessage)
+            errorMessage = 'api/notes/index.js -> DEFAULT error 405: method not allowed'
+            logger.info(errorMessage)
             return res.status(405).json({
                 status: 405,
                 success: false,

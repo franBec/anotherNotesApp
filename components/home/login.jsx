@@ -35,12 +35,15 @@ const Login = () => {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(form),
     });
-    if (res.status === 200) {
-      setUsername(form.mail);
-      router.push("/");
-    } else {
-      alert("Invalid credentials");
+    const resjson = await res.json();
+
+    if (!resjson.success) {
+      alert(resjson.message);
+      return;
     }
+
+    setUsername(resjson.username);
+    router.push("/");
   };
 
   return (
