@@ -61,7 +61,7 @@ const methodDoesNotExist = () => {
 
 const findAll = async (params) => {
   try {
-    const data = await prisma.Notes.findMany({
+    const data = await prisma.Note.findMany({
       where: {
         archived: {
           equals: yn(params.archived),
@@ -84,7 +84,7 @@ const findAll = async (params) => {
 
 const create = async (params) => {
   try {
-    const data = await prisma.Notes.create({
+    const data = await prisma.Note.create({
       data: {
         title: params.title,
         content: params.content,
@@ -106,7 +106,7 @@ const create = async (params) => {
 
 const update = async (params) => {
   try {
-    const data = await prisma.Notes.update({
+    const data = await prisma.Note.update({
       where: {
         id: Number(params.id),
       },
@@ -130,7 +130,7 @@ const update = async (params) => {
 
 const deleteById = async (id) => {
   try {
-    const data = await prisma.Notes.delete({
+    const data = await prisma.Note.delete({
       where: {
         id: Number(id),
       },
@@ -150,7 +150,7 @@ const deleteById = async (id) => {
 
 const archive = async (params) => {
   try {
-    const data = await prisma.Notes.update({
+    const data = await prisma.Note.update({
       where: {
         id: Number(params.id),
       },

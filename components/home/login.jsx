@@ -36,7 +36,7 @@ const Login = () => {
       body: JSON.stringify(form),
     });
     if (res.status === 200) {
-      setUsername(form.username);
+      setUsername(form.mail);
       router.push("/");
     } else {
       alert("Invalid credentials");
@@ -50,20 +50,17 @@ const Login = () => {
           <form className="space-y-6" onSubmit={(e) => handleLogin(e)}>
             <h3 className="text-xl">Login</h3>
             <div>
-              <label
-                htmlFor="username"
-                className="mb-2 block text-sm font-medium"
-              >
-                Username
+              <label htmlFor="mail" className="mb-2 block text-sm font-medium">
+                Mail
               </label>
               <input
-                type="text"
-                name="username"
-                id="username"
+                type="email"
+                name="mail"
+                id="mail"
                 className="block w-full rounded-lg border border-gray-300 p-2"
-                placeholder="username"
+                placeholder="mail"
                 required=""
-                value={form.username ?? ""}
+                value={form.mail ?? ""}
                 onChange={(e) => handleFormChange(e)}
               />
             </div>
