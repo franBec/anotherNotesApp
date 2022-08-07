@@ -11,7 +11,7 @@ import Modal from "../utils/modal";
 import CreateEditModalChildren from "./createEditModalChildren";
 
 import LoadingGrid from "../utils/loadingGrid";
-import ErrorComponent from "../utils/errorComponent";
+import ErrorComponent from "../utils/errors/errorComponent";
 
 const MainComponent = ({ archived }) => {
   //* ----- main content -----

@@ -1,8 +1,7 @@
 import Home from "../components/home/home";
 import Login from "../components/home/login";
 
-import getJwtDecoded from "../services/auth/getJwtDecoded";
-
+import getPermissions from "../services/auth/getPermissions_byJwt";
 /*
   given a cookie (it lives in req.env.COOKIENAME)
   getServerSideProps will look for data about the current session
@@ -10,18 +9,22 @@ import getJwtDecoded from "../services/auth/getJwtDecoded";
 */
 export async function getServerSideProps({ req }) {
   const cookieName = process.env.COOKIENAME;
-  const { loggedIn } = await getJwtDecoded(req.cookies[cookieName]);
+  const sessionData = await getPermissions(req.cookies[cookieName]);
 
   return {
-    props: { loggedIn },
+    props: { sessionData },
   };
 }
 
-const Index = ({ loggedIn }) => {
+const Index = ({ sessionData }) => {
   return (
     <>
       {/* <>{JSON.stringify(sessionData)}</> */}
-      {loggedIn ? <Home /> : <Login />}
+      {sessionData?.loggedIn ? (
+        <Home permissions={sessionData.permissions} />
+      ) : (
+        <Login />
+      )}
     </>
   );
 };

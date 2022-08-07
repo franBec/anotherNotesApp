@@ -1,8 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../db";
 import yn from "yn";
 import logger from "../services/logger";
-
-const prisma = new PrismaClient();
 
 const noteController = async (params) => {
   logger.info(

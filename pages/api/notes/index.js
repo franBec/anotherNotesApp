@@ -11,12 +11,12 @@ export default async function handler(req,res){
         const cookie = req.cookies[cookiename]
         const {currentUser, message} = await getCurrentUser(cookie)
         
-        //check for status 403 forbidden
+        //check for status 401 unauthorized
         if(!currentUser){
-            const errorMessage = 'api/notes/index.js -> error 403: '+ message
+            const errorMessage = 'api/notes/index.js -> error 401: '+ message
             logger.info(errorMessage)
-            return res.status(403).json({
-                status: 403,
+            return res.status(401).json({
+                status: 401,
                 success: false,
                 data:[],
                 errorMessage: errorMessage

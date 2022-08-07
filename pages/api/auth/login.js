@@ -43,7 +43,7 @@ export default async function (req, res) {
     });
   }
 
-  //credentials invalid
+  //invalid credentials
   if (login.status === 401) {
     return res
       .status(401)

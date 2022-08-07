@@ -8,7 +8,7 @@ import { useUsername } from "../../zustand/sessionStore";
 
 import HomeCard from "./homeCard";
 
-const Home = () => {
+const Home = ({ permissions }) => {
   //useState & useEffect of username, to prevent hydration error
   const username = useUsername((state) => state.username);
   const [getUsername, setUsername] = useState();
@@ -33,11 +33,9 @@ const Home = () => {
             link="/archivedNotes"
             title="Go to Archived Notes"
           />
-          <HomeCard
-            icon={faGaugeHigh}
-            link="/archivedNotes"
-            title="Dashboard"
-          />
+          {permissions.includes("DASHBOARD_SEE") && (
+            <HomeCard icon={faGaugeHigh} link="/dashboard" title="Dashboard" />
+          )}
         </div>
       </div>
       <p className="text-center italic">
