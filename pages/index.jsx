@@ -1,7 +1,7 @@
 import Home from "../components/home/home";
 import Login from "../components/home/login";
 
-import getSessionData from "../services/auth/getSessionData";
+import getJwtDecoded from "../services/auth/getJwtDecoded";
 
 /*
   given a cookie (it lives in req.env.COOKIENAME)
@@ -10,19 +10,19 @@ import getSessionData from "../services/auth/getSessionData";
 */
 export async function getServerSideProps({ req }) {
   const cookieName = process.env.COOKIENAME;
-  const sessionData = await getSessionData(req.cookies[cookieName]);
+  const { loggedIn } = await getJwtDecoded(req.cookies[cookieName]);
 
   return {
-    props: { sessionData },
+    props: { loggedIn },
   };
 }
 
-const Index = ({ sessionData }) => {
+const Index = ({ loggedIn }) => {
   return (
-    <>
+    <div className="p-2">
       {/* <>{JSON.stringify(sessionData)}</> */}
-      {sessionData.loggedIn ? <Home /> : <Login />}
-    </>
+      {loggedIn ? <Home /> : <Login />}
+    </div>
   );
 };
 

@@ -4,7 +4,6 @@ import { sign } from "../../../services/auth/signAndVerify";
 import { serialize } from "cookie";
 import loginController from "../../../controllers/loginController";
 import logger from "../../../services/logger";
-import { data } from "autoprefixer";
 
 const cookiename = process.env.COOKIENAME;
 const cookieSecret = process.env.COOKIESECRET;

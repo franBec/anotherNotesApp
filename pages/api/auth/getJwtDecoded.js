@@ -1,4 +1,4 @@
-//does the same that services/auth/getSessionData
+//does the same that services/auth/getJwtDecoded
 
 import { verify } from "../../../services/auth/signAndVerify";
 export default async function (req, res) {

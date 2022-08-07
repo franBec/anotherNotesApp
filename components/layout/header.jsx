@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useUsername } from "../../zustand/sessionStore";
 
 const Header = () => {
+  //useState & useEffect of username, to prevent hydration error
   const username = useUsername((state) => state.username);
   const [getUsername, setUsername] = useState();
 

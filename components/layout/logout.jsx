@@ -1,5 +1,6 @@
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
+import { RiLogoutBoxRFill } from "react-icons/ri";
 
 const Logout = () => {
   const router = useRouter();
@@ -34,8 +35,11 @@ const Logout = () => {
   };
 
   return (
-    <button className="text-xl" onClick={handleLogout}>
-      Logout
+    <button onClick={handleLogout}>
+      <div className="flex flex-row items-center space-x-2 text-xl">
+        <span>Logout</span>
+        <RiLogoutBoxRFill />
+      </div>
     </button>
   );
 };

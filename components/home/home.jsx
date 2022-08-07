@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { faStickyNote } from "@fortawesome/free-solid-svg-icons";
 import { faArchive } from "@fortawesome/free-solid-svg-icons";
 
@@ -6,11 +7,17 @@ import { useUsername } from "../../zustand/sessionStore";
 import HomeCard from "./homeCard";
 
 const Home = () => {
+  //useState & useEffect of username, to prevent hydration error
   const username = useUsername((state) => state.username);
+  const [getUsername, setUsername] = useState();
+
+  useEffect(() => {
+    setUsername(username);
+  }, [username]);
 
   return (
     <>
-      <p className="text-center font-bold text-3xl">Hello {username}!</p>
+      <p className="text-center font-bold text-3xl">Hello {getUsername}!</p>
 
       <div className="p-4">
         <div className="grid grid-cols-2 gap-8 place-content-center">
