@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
       <Toaster position="top-center" reverseOrder={true} />
 
       {/* main content */}
-      <main className="h-screen bg-slate-100">{children}</main>
+      <main className="p-4 h-screen bg-slate-100">{children}</main>
 
       {/* footer */}
       <Footer />

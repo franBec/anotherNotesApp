@@ -112,6 +112,7 @@ const update = async (params) => {
       data: {
         title: params.title,
         content: params.content,
+        modified: new Date(),
       },
     });
     return {
@@ -155,6 +156,7 @@ const archive = async (params) => {
       },
       data: {
         archived: yn(params.archived),
+        modified: new Date(),
       },
     });
     return {

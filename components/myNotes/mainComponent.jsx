@@ -232,7 +232,7 @@ const MainComponent = ({ archived }) => {
 
   //* ----- Component return -----
   return (
-    <div className="p-4">
+    <div className="">
       {renderContent()}
       {showModal && renderModal()}
     </div>

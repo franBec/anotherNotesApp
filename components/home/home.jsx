@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+
 import { faStickyNote } from "@fortawesome/free-solid-svg-icons";
 import { faArchive } from "@fortawesome/free-solid-svg-icons";
+import { faGaugeHigh } from "@fortawesome/free-solid-svg-icons";
 
 import { useUsername } from "../../zustand/sessionStore";
 
@@ -16,7 +18,7 @@ const Home = () => {
   }, [username]);
 
   return (
-    <>
+    <div className="space-y-4">
       <p className="text-center font-bold text-3xl">Hello {getUsername}!</p>
 
       <div className="p-4">
@@ -31,12 +33,17 @@ const Home = () => {
             link="/archivedNotes"
             title="Go to Archived Notes"
           />
+          <HomeCard
+            icon={faGaugeHigh}
+            link="/archivedNotes"
+            title="Dashboard"
+          />
         </div>
       </div>
       <p className="text-center italic">
         You can logout from the top right corner
       </p>
-    </>
+    </div>
   );
 };
 

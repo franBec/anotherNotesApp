@@ -19,6 +19,7 @@ model User {
   password  String    @db.VarChar(255)
 
   notes Note[]
+  rols  Rol[]
 }
 
 model Note {
@@ -32,4 +33,23 @@ model Note {
   //a note must have a user
   user   User @relation(fields: [userId], references: [id])
   userId Int
+}
+
+model Rol {
+  id          Int          @id @default(autoincrement())
+  created     DateTime     @default(now()) @db.DateTime(0)
+  modified    DateTime?    @db.DateTime(0)
+  name        String       @db.VarChar(255)
+  description String       @db.VarChar(255)
+  users       User[]
+  permissions Permission[]
+}
+
+model Permission {
+  id          Int       @id @default(autoincrement())
+  created     DateTime  @default(now()) @db.DateTime(0)
+  modified    DateTime? @db.DateTime(0)
+  name        String    @db.VarChar(255)
+  description String    @db.VarChar(255)
+  rols        Rol[]
 }

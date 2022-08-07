@@ -19,10 +19,10 @@ export async function getServerSideProps({ req }) {
 
 const Index = ({ loggedIn }) => {
   return (
-    <div className="p-2">
+    <>
       {/* <>{JSON.stringify(sessionData)}</> */}
       {loggedIn ? <Home /> : <Login />}
-    </div>
+    </>
   );
 };
 
