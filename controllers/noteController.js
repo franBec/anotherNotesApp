@@ -61,7 +61,7 @@ const findAll = async (params) => {
         archived: {
           equals: yn(params.archived),
         },
-        userId: Number(params.currentUser.id),
+        userId: Number(params.currentUserId),
       },
     });
 
@@ -84,7 +84,7 @@ const create = async (params) => {
       data: {
         title: params.title,
         content: params.content,
-        userId: Number(params.currentUser.id),
+        userId: Number(params.currentUserId),
       },
     });
 

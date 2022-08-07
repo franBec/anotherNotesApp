@@ -6,15 +6,17 @@ export default async function (jwt) {
 
   try {
     const { payload } = await verify(jwt, cookieSecret);
+    /*
     const currentUser = await prisma.user.findUnique({
       where: {
         id: payload,
       },
     });
-    return { currentUser: currentUser, message: "ok" };
+    */
+    return { currentUserId: payload, message: "ok" };
   } catch (error) {
     return {
-      currentUser: null,
+      currentUserId: null,
       message: error.message,
     };
   } finally {

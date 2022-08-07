@@ -6,23 +6,6 @@ import logger from "../../../services/logger";
 //prettier-ignore
 export default async function handler(req,res){
     try {
-        //get current user information
-        const cookiename = process.env.COOKIENAME;
-        const cookie = req.cookies[cookiename]
-        const {currentUser, message} = await getCurrentUser(cookie)
-        
-        //check for status 401 unauthorized
-        if(!currentUser){
-            const errorMessage = 'api/notes/index.js -> error 401: '+ message
-            logger.info(errorMessage)
-            return res.status(401).json({
-                status: 401,
-                success: false,
-                data:[],
-                errorMessage: errorMessage
-            })  
-        }
-        
         //check for status 405 method not allowed
         const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE']
         if(!allowedMethods.includes(req.method)){
@@ -39,11 +22,7 @@ export default async function handler(req,res){
         //set params
         const params = req.method==='GET'? req.query : req.body
 
-        //add current user to params, so controller can use it if needed
-        params.currentUser = currentUser
-        logger.info(`api/notes/index.js -> ${req.method} requested! params = ${JSON.stringify(params)}`)                
-        
-        //check for status 400 bad request
+       //check for status 400 bad request
         if(!params?.action){
             const errorMessage = 'api/notes/index.js -> error 400: bad request, action required'
             logger.info(errorMessage)
@@ -55,6 +34,26 @@ export default async function handler(req,res){
                 errorMessage: errorMessage
             })
         }
+
+        //get current user information
+        const cookiename = process.env.COOKIENAME;
+        const cookie = req.cookies[cookiename]
+        const {currentUserId, message} = await getCurrentUser(cookie)
+        
+        //check for status 401 unauthorized
+        if(!currentUserId){
+            const errorMessage = 'api/notes/index.js -> error 401: '+ message
+            logger.info(errorMessage)
+            return res.status(401).json({
+                status: 401,
+                success: false,
+                data:[],
+                errorMessage: errorMessage
+            })  
+        }
+        
+        //add current user to params, so controller can use it if needed
+        params.currentUserId = currentUserId
 
         //everything's ok! go to controller
         const results = await noteController(params)
