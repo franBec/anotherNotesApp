@@ -10,7 +10,7 @@ import Navbar from "./navbar";
 import Modal from "../utils/modal";
 import CreateEditModalChildren from "./createEditModalChildren";
 
-import LoadingGrid from "../utils/loadingGrid";
+import LoadingGrid from "../utils/loading/loadingGrid";
 import ErrorComponent from "../utils/errors/errorComponent";
 
 const MainComponent = ({ archived }) => {
@@ -41,17 +41,14 @@ const MainComponent = ({ archived }) => {
     }
 
     return (
-      <div className="space-y-5">
-        <Navbar handleCreateNote={handleCreateNote} archived={archived} />
-        <Grid
-          data={data.data}
-          actions={{
-            handleEditNote,
-            handleDeleteNote,
-            handleArchiveNote,
-          }}
-        />
-      </div>
+      <Grid
+        data={data.data}
+        actions={{
+          handleEditNote,
+          handleDeleteNote,
+          handleArchiveNote,
+        }}
+      />
     );
   };
 
@@ -232,7 +229,8 @@ const MainComponent = ({ archived }) => {
 
   //* ----- Component return -----
   return (
-    <div className="">
+    <div className="space-y-5">
+      <Navbar handleCreateNote={handleCreateNote} archived={archived} />
       {renderContent()}
       {showModal && renderModal()}
     </div>
