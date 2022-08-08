@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
+import Link from "next/link";
 import Swal from "sweetalert2";
 
+import { useLoading } from "../../zustand/loadingStore";
+
 const Signup = () => {
+  //*zustand management of a blocking loading screen
+  const setLoading = useLoading((state) => state.set_isLoading);
+
+  //*router, used for redirecting to login page when success
   const router = useRouter();
 
+  //* form management
   const [form, setForm] = useState({});
 
   const handleFormChange = (e) => {
@@ -72,6 +79,8 @@ const Signup = () => {
       return;
     }
 
+    setLoading(true);
+
     const res = await fetch("/api/signup", {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -81,6 +90,7 @@ const Signup = () => {
     const resjson = await res.json();
 
     if (resjson.status !== 200) {
+      setLoading(false);
       Swal.fire({
         text: resjson.errorMessage,
         icon: "error",

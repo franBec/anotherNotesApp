@@ -2,7 +2,9 @@ import { prisma } from "../db";
 import logger from "../services/logger";
 
 const signupController = async (form) => {
-  logger.info("controllers/signupController -> form: " + JSON.stringify(form));
+  logger.info(
+    "controllers/signupController -> form: " + JSON.stringify(form, null, 2)
+  );
   try {
     //look for a user with provided mail
     const user = await prisma.user.findUnique({

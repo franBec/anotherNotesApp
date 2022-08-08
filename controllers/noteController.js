@@ -4,7 +4,8 @@ import logger from "../services/logger";
 
 const noteController = async (params) => {
   logger.info(
-    "controllers/noteController.js -> params = " + JSON.stringify(params)
+    "controllers/noteController.js -> params = " +
+      JSON.stringify(params, null, 2)
   );
 
   switch (params.action) {

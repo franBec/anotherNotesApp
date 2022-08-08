@@ -14,11 +14,11 @@ const CreateEditModalChildren = ({ setShowModal, onSubmit, noteData }) => {
       return "Title can't be empty";
     }
 
-    if (form.title.length > 255) {
+    if (form.title.length > 100) {
       return "Title too long";
     }
 
-    if (form.content.length > 255) {
+    if (form.content.length > 1000) {
       return "Content too long";
     }
 

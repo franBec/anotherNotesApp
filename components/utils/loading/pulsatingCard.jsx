@@ -1,6 +1,6 @@
 import { FaStickyNote } from "react-icons/fa";
 
-const LoadingCard = () => {
+const PulsatingCard = () => {
   return (
     <>
       <div className="border-2 border-black shadow rounded-md p-2 max-w-sm w-full mx-auto">
@@ -23,4 +23,4 @@ const LoadingCard = () => {
   );
 };
 
-export default LoadingCard;
+export default PulsatingCard;

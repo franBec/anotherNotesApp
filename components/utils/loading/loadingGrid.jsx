@@ -1,31 +1,31 @@
-import LoadingCard from "./loadingCard";
+import PulsatingCard from "./pulsatingCard";
 
 const LoadingGrid = () => {
   return (
     <div className="grid grid-cols-2 gap-4">
       <div>
-        <LoadingCard />
+        <PulsatingCard />
       </div>
       <div>
-        <LoadingCard />
+        <PulsatingCard />
       </div>
       <div>
-        <LoadingCard />
+        <PulsatingCard />
       </div>
       <div>
-        <LoadingCard />
+        <PulsatingCard />
       </div>
       <div>
-        <LoadingCard />
+        <PulsatingCard />
       </div>
       <div>
-        <LoadingCard />
+        <PulsatingCard />
       </div>
       <div>
-        <LoadingCard />
+        <PulsatingCard />
       </div>
       <div>
-        <LoadingCard />
+        <PulsatingCard />
       </div>
     </div>
   );
