@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { useUsername } from "../../zustand/sessionStore";
 
@@ -47,64 +48,61 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div className="flex justify-center">
-        <div className="rounded-lg border border-gray-300 p-4 shadow-xl">
-          <form className="space-y-6" onSubmit={(e) => handleLogin(e)}>
-            <h3 className="text-xl">Login</h3>
-            <div>
-              <label htmlFor="mail" className="mb-2 block text-sm font-medium">
-                Mail
-              </label>
-              <input
-                type="email"
-                name="mail"
-                id="mail"
-                className="block w-full rounded-lg border border-gray-300 p-2"
-                placeholder="mail"
-                required=""
-                value={form.mail ?? ""}
-                onChange={(e) => handleFormChange(e)}
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="mb-2 block text-sm font-medium"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="••••••••"
-                className="block w-full rounded-lg border border-gray-300 p-2"
-                required=""
-                value={form.password ?? ""}
-                onChange={(e) => handleFormChange(e)}
-              />
-            </div>
+    <div className="flex justify-center">
+      <div className="rounded-lg border border-gray-300 p-4 shadow-xl">
+        <form className="space-y-6" onSubmit={(e) => handleLogin(e)}>
+          <h3 className="text-xl">Login</h3>
+          <div>
+            <label htmlFor="mail" className="mb-2 block text-sm font-medium">
+              Mail
+            </label>
+            <input
+              type="email"
+              name="mail"
+              id="mail"
+              className="block w-full rounded-lg border border-gray-300 p-2"
+              placeholder="mail"
+              required=""
+              value={form.mail ?? ""}
+              onChange={(e) => handleFormChange(e)}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="mb-2 block text-sm font-medium"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="••••••••"
+              className="block w-full rounded-lg border border-gray-300 p-2"
+              required=""
+              value={form.password ?? ""}
+              onChange={(e) => handleFormChange(e)}
+            />
+          </div>
 
-            <button
-              type="submit"
-              className="w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center  text-white hover:bg-blue-600 "
-            >
-              Login
-            </button>
-            {/* <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Not registered?{' '}
-            <a
-              href="#"
-              className="text-blue-700 hover:underline dark:text-blue-500"
-            >
-              Create account
-            </a>
-          </div> */}
-          </form>
-        </div>
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center  text-white hover:bg-blue-600 "
+          >
+            Login
+          </button>
+          <div className="text-sm font-medium">
+            Not registered?{" "}
+            <Link href="/signup">
+              <a className="text-blue-700 hover:underline dark:text-blue-500">
+                Create account
+              </a>
+            </Link>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 
