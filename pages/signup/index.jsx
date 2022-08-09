@@ -70,16 +70,18 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const error = doesFormHasErrors();
     if (error) {
+      setLoading(false);
       Swal.fire({
         text: error,
         icon: "error",
+        timer: 3000,
       });
       return;
     }
-
-    setLoading(true);
 
     const res = await fetch("/api/signup", {
       method: "POST",
@@ -94,12 +96,15 @@ const Signup = () => {
       Swal.fire({
         text: resjson.errorMessage,
         icon: "error",
+        timer: 3000,
       });
       return;
     }
+
     Swal.fire({
-      text: "Sign up successfull",
+      text: "Sign up successfull!",
       icon: "success",
+      timer: 3000,
     });
     router.push("/");
   };
