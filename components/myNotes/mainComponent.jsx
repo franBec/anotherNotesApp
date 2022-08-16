@@ -16,7 +16,7 @@ import ErrorComponent from "../utils/errors/errorComponent";
 const MainComponent = ({ archived }) => {
   //* ----- main content -----
 
-  const fetchURL = `/api/notes?action=findAll&archived=${
+  const fetchURL = `/api/notes/findAll?archived=${
     yn(archived) ? "true" : "false"
   }`;
 
@@ -142,11 +142,10 @@ const MainComponent = ({ archived }) => {
     setShowModal(false);
     setNoteInModal(null);
 
-    const res = await fetch("/api/notes", {
+    const res = await fetch("/api/notes/create", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-        action: "create",
         title: form.title,
         content: form.content,
       }),
@@ -164,11 +163,10 @@ const MainComponent = ({ archived }) => {
     setShowModal(false);
     setNoteInModal(null);
 
-    const res = await fetch("/api/notes", {
+    const res = await fetch("/api/notes/update", {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-        action: "update",
         id: form.id,
         title: form.title,
         content: form.content,
@@ -184,11 +182,10 @@ const MainComponent = ({ archived }) => {
   };
 
   const toast_deletePromise = async (id) => {
-    const res = await fetch("api/notes", {
+    const res = await fetch("api/notes/deleteById", {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-        action: "deleteById",
         id: id,
       }),
     });
@@ -202,11 +199,10 @@ const MainComponent = ({ archived }) => {
   };
 
   const toast_archivePromise = async (id, setArchive) => {
-    const res = await fetch("api/notes", {
+    const res = await fetch("api/notes/archive", {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-        action: "archive",
         id: id,
         archived: setArchive,
       }),

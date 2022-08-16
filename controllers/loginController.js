@@ -1,4 +1,5 @@
 import { prisma } from "../db";
+import logger from "../services/logger";
 
 const loginController = async (mail, password) => {
   try {
