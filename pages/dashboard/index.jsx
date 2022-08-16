@@ -1,9 +1,11 @@
-import getPermissions from "../../services/auth/getPermissions_byJwt";
+import { getCurrentUser_permissions } from "../../services/auth/getCurrentUser";
 export async function getServerSideProps({ req, res }) {
   const cookieName = process.env.COOKIENAME;
-  const sessionData = await getPermissions(req.cookies[cookieName]);
+  const { permissions } = await getCurrentUser_permissions(
+    req.cookies[cookieName]
+  );
 
-  if (!sessionData?.permissions?.includes("DASHBOARD_SEE")) {
+  if (!permissions?.includes("DASHBOARD_SEE")) {
     res.setHeader("location", "/");
     res.statusCode = 302;
     res.end();

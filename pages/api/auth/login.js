@@ -47,11 +47,11 @@ export default async function (req, res) {
   if (login.status === 401) {
     return res
       .status(401)
-      .json({ success: false, message: "Invalid credentials" });
+      .json({ success: false, message: "Invalid credentials", username: null });
   }
 
   //error
   return res
     .status(500)
-    .json({ success: false, message: "Internal server error" });
+    .json({ success: false, message: "Internal server error", username: null });
 }

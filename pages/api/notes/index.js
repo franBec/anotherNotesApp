@@ -1,5 +1,5 @@
 import noteController from "../../../controllers/noteController";
-import getCurrentUser from "../../../services/auth/getCurrentUser";
+import { getCurrentUser_id } from "../../../services/auth/getCurrentUser";
 
 import logger from "../../../services/logger";
 
@@ -38,7 +38,7 @@ export default async function handler(req,res){
         //get current user information
         const cookiename = process.env.COOKIENAME;
         const cookie = req.cookies[cookiename]
-        const {currentUserId, message} = await getCurrentUser(cookie)
+        const {currentUserId, message} = await getCurrentUser_id(cookie)
         
         //check for status 401 unauthorized
         if(!currentUserId){
