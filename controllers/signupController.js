@@ -1,10 +1,14 @@
 import { prisma } from "../db";
-import logger from "../services/logger";
 
-const signupController = async (form) => {
-  logger.info(
-    "controllers/signupController -> form: " + JSON.stringify(form, null, 2)
-  );
+import {
+  handleStatus200,
+  handleStatus400,
+  handleStatus500,
+} from "../services/api/handleStatusXXX";
+
+const fileName = "controllers/signupController";
+
+export const signUp = async (form) => {
   try {
     //look for a user with provided mail
     const user = await prisma.user.findUnique({
@@ -15,7 +19,7 @@ const signupController = async (form) => {
 
     //mail already registered
     if (user) {
-      return { errorMessage: "Mail already registered", status: 400 };
+      return handleStatus400(fileName, "Mail already registered");
     }
 
     //delete the repeated password from the form, it is no needed from this point on
@@ -25,13 +29,10 @@ const signupController = async (form) => {
       data: form,
     });
 
-    return { errorMessage: null, status: 200 };
+    return handleStatus200();
   } catch (error) {
-    logger.error(error.message);
-    return { errorMessage: error.message, status: 500 };
+    handleStatus500(fileName, error);
   } finally {
     await prisma.$disconnect();
   }
 };
-
-export default signupController;

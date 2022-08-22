@@ -1,6 +1,6 @@
 import logger from "../logger";
 
-export function handleStatus200(data, metadata = null) {
+export function handleStatus200(data = null, metadata = null) {
   return {
     status: 200,
     success: true,
