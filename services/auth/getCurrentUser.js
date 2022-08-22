@@ -16,8 +16,6 @@ export async function getCurrentUser_id(jwt) {
       currentUserId: null,
       message: error.message,
     };
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
