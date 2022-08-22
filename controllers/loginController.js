@@ -1,8 +1,20 @@
 import { prisma } from "../db";
-import logger from "../services/logger";
 
-const loginController = async (mail, password) => {
+import {
+  handleStatus200,
+  handleStatus400,
+  handleStatus401,
+  handleStatus500,
+} from "../services/api/handleStatusXXX";
+
+const fileName = "controllers/loginController";
+
+export const login = async ({ mail, password }) => {
   try {
+    if (!mail || !password) {
+      return handleStatus400(fileName, "mail and password are required");
+    }
+
     //look for a user with provided mail
     const user = await prisma.user.findUnique({
       where: {
@@ -12,22 +24,19 @@ const loginController = async (mail, password) => {
 
     //if not user
     if (!user) {
-      return { data: null, status: 401 };
+      return handleStatus401(fileName, "Invalid credentials");
     }
 
     //if not valid password
     if (user.password !== password) {
-      return { data: null, status: 401 };
+      return handleStatus401(fileName, "Invalid credentials");
     }
 
     //all ok!
-    return { data: { id: user.id, name: user.firstName }, status: 200 };
+    return handleStatus200({ id: user.id, name: user.firstName });
   } catch (error) {
-    logger.error(error.message);
-    return { data: null, status: 500 };
+    return handleStatus500(fileName, error);
   } finally {
     await prisma.$disconnect();
   }
 };
-
-export default loginController;

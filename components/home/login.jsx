@@ -39,11 +39,10 @@ const Login = () => {
     const resjson = await res.json();
 
     if (!resjson.success) {
-      alert(resjson.message);
+      alert(resjson.errorMessage);
       return;
     }
-
-    setUsername(resjson.username);
+    setUsername(resjson.data.name);
     router.push("/");
   };
 
